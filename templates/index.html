@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mon Amour</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='90' font-size='90'>❤️</text></svg>">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+
+        <!-- First Popup: Warning -->
+        <div id="popup-overlay">
+            <div class="popup-box">
+                <p>
+                    Just a small note before we begin...<br><br>
+                    This is not intended in any bad way — no pressure, no expectations.<br><br>
+                    Please use earphones for a better experience 🎧<br>
+                    Take your time. And only continue if you're in the mood.
+                </p>
+                <button id="start-btn">Start</button>
+            </div>
+        </div>
+
+        <!-- Second popup: make this a form POST -->
+        <div id="code-popup-overlay" class="popup-overlay hidden">
+            <div class="popup-box">
+            <p>Only you hold the key 🗝️,<br>Please enter the code</p>
+            <!-- 🧠 Subtle clue -->
+            <p style="font-size: 0.9rem; margin-bottom: 1rem;">
+                <em>A piece of ur name 🍰,<br>
+                The Day you were Born 📅,<br>
+                The Day your MOM Born 🤱🏻,<br>
+                and the first letter of you star sign ✨<br><br>
+                Rajesh + 01/02/2001 + 03/04/1970 + Libra = Raje0103L</em>
+            </p>
+            <form method="POST" action="{{ url_for('verify_code') }}">
+                <input type="text" id="code-input" name="code" placeholder="Enter code here" class="popup-input" required>
+                <button type="submit" class="popup-btn">Submit</button>
+            </form>
+                {% if error %}
+                    <p class="error-message">{{ error }}</p>
+                {% else %}
+                    <p id="code-error" class="error-message"></p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="intro-container">
+            <pre id="typewriter"></pre>
+            <button id="continue-btn" class="hidden">Continue</button>
+        </div>
+        
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    
+    </body>
+</html>

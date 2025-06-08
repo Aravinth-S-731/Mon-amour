@@ -1,0 +1,110 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-family: 'Courier New', monospace;
+    overflow: hidden; /* Prevent scrolling */
+  }
+  
+  .intro-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 5vw;
+    text-align: center;
+  }
+  
+  #typewriter {
+    white-space: pre-wrap;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 700px;
+  }
+  
+  button {
+    margin-top: 2rem;
+    padding: 0.8rem 2rem;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #ddd;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  /* Mobile scaling */
+  @media (max-width: 600px) {
+    #typewriter {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  
+    button {
+      font-size: 0.9rem;
+      padding: 0.7rem 1.5rem;
+    }
+  }
+
+  #popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+  
+  .popup-box {
+    background-color: white;
+    color: black;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 90%;
+    font-size: 1rem;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  
+  .popup-box p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  #start-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  #start-btn:hover {
+    background-color: #333;
+  }
+  
