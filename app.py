@@ -13,27 +13,26 @@ def verify_code():
 
     her_name = "Shanthi"
     her_birth_date = "26"
-    mom_birth_date = "18"
     star_sign = "Sagittarius"
 
     expected_code = (
         her_name[:4].capitalize() +  # First 4 letters, first letter uppercase
         her_birth_date +
-        mom_birth_date +
         star_sign[0].upper()
     ) 
     if entered_code == expected_code:
         send_notification_email(
-            subject="✅ Mon Amour – Code Accepted",
-            body="The correct code was entered by her. Proceeding to next step."
+            subject="✅ Mon Amour - Login - Code Accepted",
+            body=f"The correct code was entered by her '{entered_code}'. Proceeding to next step."
         )
         return redirect(url_for('success'))
     else:
         send_notification_email(
-            subject="❌ Mon Amour – Incorrect Code Attempted",
+            subject="❌ Mon Amour - Login - Incorrect Code Attempted",
             body=f"An incorrect code '{entered_code}' was entered."
         )
-        return render_template('index.html', error="Incorrect code. Please try again.")
+        return render_template('index.html', error="Incorrect code. Please try again.", wrong_code=True)
+
 @app.route('/success')
 def success():
     return "<h1>Welcome! The code was correct. Next steps here...</h1>"

@@ -30,9 +30,8 @@
             <p style="font-size: 0.9rem; margin-bottom: 1rem;">
                 <em>A piece of ur name 🍰,<br>
                 The Day you were Born 📅,<br>
-                The Day your MOM Born 🤱🏻,<br>
                 and the first letter of you star sign ✨<br><br>
-                Rajesh + 01/02/2001 + 03/04/1970 + Libra = Raje0103L</em>
+                Rajesh + 01/02/2001 + Libra = Raje01L</em>
             </p>
             <form method="POST" action="{{ url_for('verify_code') }}">
                 <input type="text" id="code-input" name="code" placeholder="Enter code here" class="popup-input" required>
@@ -52,6 +51,13 @@
         </div>
         
         <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        <script>
+            {% if wrong_code %}
+                alert("Wrong code. Please try again.");
+                // Optionally reopen the code popup
+                document.getElementById('code-popup-overlay').classList.remove('hidden');
+            {% endif %}
+        </script>
     
     </body>
 </html>
