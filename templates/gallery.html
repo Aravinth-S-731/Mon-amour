@@ -1,15 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Gallery 🖼️</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='90' font-size='90'>❤️</text></svg>">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}">
-    </head>
-    <body>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gallery 🖼️</title>
+<link
+    rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='90' font-size='90'>❤️</text></svg>"
+/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/gallery.css') }}" />
+</head>
+<body>
+    <header class="gallery-header">
+        <h1>✨ A Journey I Made for You ✨</h1>
+        <p class="catchphrase">
+        This isn’t just a gallery. It’s a quiet space I built, piece by piece —  
+        for the way you see the world, and for the way you make mine softer.
+        </p>
+
+        <p class="intro">
+        Each pic carries a bit of how I feel about you -  
+        the calm, the chaos, the cute overthinking, ellam konjam konjama.  
+        Naan kaeta maadhiri illa, nee irundha maadhiri dhaan.  
+        Idhellaam perfect illa, but it's all real. Just for you.
+        </p>
+    </header>
+
+    <div class="background-image"></div>
+
+    <main class="gallery-container">
+        <!-- Card - 1 -->
+        <div class="card">
+            <div class="content">
+                <div class="front">
+                    <img src="{{ url_for('static', filename='images/ghibli1.png') }}" alt="Ghibli-style illustration 1" />
+                </div>
+                <div class="back">
+                    <h2>Lantern at Sunset</h2>
+                    <p>You have this way of letting go of things, slowly, without drama 🕊️.
+                    Like, one by one - and somehow, everything around you just feels calmer after 🌅.
+                    Being near you doesn’t just feel peaceful, it makes things feel possible again ✨.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card - 2 -->
+        <div class="card">
+            <div class="content">
+                <div class="front">
+                    <img src="{{ url_for('static', filename='images/ghibli2.png') }}" alt="Ghibli-style illustration 2" />
+                </div>
+                <div class="back">
+                    <h2>Turning in Stardust</h2>
+                    <p>Sometimes when you walk or talk about things you love 🌙,
+                    it’s like you're in your own quiet rhythm.
+                    Not loud, not trying to be seen - but still, people notice 🌟.
+                    There’s something really rare about that.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card - 3 -->
+        <div class="card">
+            <div class="content">
+                <div class="front">
+                    <img src="{{ url_for('static', filename='images/ghibli3.png') }}" alt="Ghibli-style illustration 3" />
+                </div>
+                <div class="back">
+                    <h2>Umbrella in Rain</h2>
+                    <p>Even when things aren’t great, you don’t panic ☁️.
+                    You take it in, breathe through it, and just keep going ☔.
+                    It’s not about being strong all the time - it’s the way you handle it,
+                    like you somehow know storms won’t last forever 🌧️.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card - 4 -->
+        <div class="card">  
+            <div class="content">
+                <div class="front">
+                    <img src="{{ url_for('static', filename='images/ghibli4.png') }}" alt="Ghibli-style illustration 4" />
+                </div>
+                <div class="back">
+                    <h2>Streamside Serenity</h2>
+                    <p>You don’t even have to say much - just being there makes it feel okay 🍃.
+                    I’ve watched how you pause, how you listen to even small things 💧.
+                    You understand more than you say - and that’s something I really admire 🤍.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card - 5 -->
+        <div class="card">
+            <div class="content">
+                <div class="front">
+                    <img src="{{ url_for('static', filename='images/ghibli5.png') }}" alt="Ghibli-style illustration 5" />
+                </div>
+                <div class="back">
+                    <h2>Golden Saree Glow</h2>
+                    <p>There’s something beautiful in the way you carry yourself 🌾.
+                    Not loud or for show - just that quiet confidence.
+                    Like you know where you come from, and you're not in a rush 🪷.
+                    That calmness... it stands out ✨.</p>
+                </div>
+            </div>
+        </div>  
+        <!-- Card - 6 -->
+        <div class="card">
+            <div class="content">
+                <div class="front">
+                    <img src="{{ url_for('static', filename='images/ghibli6.png') }}" alt="Ghibli-style illustration 6" />
+                </div>
+                <div class="back">
+                    <h2>Field of Blossoms</h2>
+                    <p>You’re not someone who tries to stand out - but you do anyway 🌼.
+                    The way you move, talk, laugh — it just makes the space around you feel lighter 🌸.
+                    That kind of ease is rare, and honestly, really beautiful 🍃.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card - 7 -->
+        <div class="card">
+            <div class="content">
+                <div class="front">
+                    <img src="{{ url_for('static', filename='images/ghibli7.png') }}" alt="Ghibli-style illustration 7" />
+                </div>
+                <div class="back">
+                    <h2>Rainbow Skip</h2>
+                    <p>You have these random moments where you just light up 🌈.
+                    Your laugh, or the way you react to silly things - it's pure 💖.
+                    That energy? It pulls people in without trying 🎈.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Card - 8 -->
+        <div class="card">
+            <div class="content">
+                <div class="front">
+                    <img src="{{ url_for('static', filename='images/ghibli8.png') }}" alt="Ghibli-style illustration 8" />
+                </div>
+                <div class="back">
+                    <h2>Sky & Grass Whisper</h2>
+                    <p>I don’t know if you realise this — but when you talk 🌤️,
+                    the way you think, your questions, your randomness - it’s refreshing 🍃.
+                    You don’t try to fit into anything.
+                    You’re just... you. And that’s exactly what makes it all work 🌀.</p>
+                </div> 
+            </div>
+        </div>
+        <!-- Add more cards as needed -->
+    </main>
+
+    <script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
 
 
-
-    </body>
+</body>
 </html>

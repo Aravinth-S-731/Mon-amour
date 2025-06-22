@@ -1,11 +1,19 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
+from datetime import timedelta
 from utils import send_notification_email  # ← Import the email sender function
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'  # Replace with a secure key
+
+# ⏳ Set session timeout to 30 minutes
+app.permanent_session_lifetime = timedelta(minutes=30)
 
 @app.route('/')
 def index():
-    return render_template('index.html', error=None)  # no error at first
+    # If already authenticated, redirect to success page
+    if session.get('authenticated'):
+        return redirect(url_for('success'))
+    return render_template('index.html', error=None)
 
 @app.route('/verify_code', methods=['POST'])
 def verify_code():
@@ -16,16 +24,20 @@ def verify_code():
     star_sign = "Sagittarius"
 
     expected_code = (
-        her_name[:4].capitalize() +  # First 4 letters, first letter uppercase
+        her_name[:4].capitalize() +
         her_birth_date +
         star_sign[0].upper()
-    ) 
+    )
+
     if entered_code == expected_code:
+        session.permanent = True            # ✅ Make session permanent (use lifetime)
+        session['authenticated'] = True     # ✅ Mark user as authenticated
+
         send_notification_email(
             subject="✅ Mon Amour - Login - Code Accepted",
             body=f"The correct code was entered by her '{entered_code}'. Proceeding to next step."
         )
-        return redirect(url_for('success'))
+        return redirect(url_for('gallery'))
     else:
         send_notification_email(
             subject="❌ Mon Amour - Login - Incorrect Code Attempted",
@@ -33,9 +45,17 @@ def verify_code():
         )
         return render_template('index.html', error="Incorrect code. Please try again.", wrong_code=True)
 
-@app.route('/success')
-def success():
-    return "<h1>Welcome! The code was correct. Next steps here...</h1>"
+@app.route('/gallery')
+def gallery():
+    if not session.get('authenticated'):
+        return redirect(url_for('index'))
+
+    return render_template('gallery.html', error=None)
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")
