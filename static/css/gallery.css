@@ -14,6 +14,16 @@ body {
     position: relative;
     overflow-x: hidden;
     cursor: url('../images/heart.png'), auto;
+
+    /* To hide until resource loads */
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+body.loaded {
+    visibility: visible;
+    opacity: 1;
 }
 
 .background-image {
@@ -41,6 +51,24 @@ body::before {
     height: 100vh;
     background: rgba(255, 255, 255, 0.8); /* Adjust transparency */
     z-index: -1;
+}
+
+#preloader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: #f9f5f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.2rem;
+    z-index: 9999;
+    color: #c74f75;
+}
+
+body.loaded #preloader {
+    display: none;
 }
 
 .gallery-header {

@@ -30,14 +30,14 @@ def verify_code():
     )
 
     if entered_code == expected_code:
-        session.permanent = True            # ✅ Make session permanent (use lifetime)
-        session['authenticated'] = True     # ✅ Mark user as authenticated
+        session.permanent = True
+        session['authenticated'] = True
 
         send_notification_email(
             subject="✅ Mon Amour - Login - Code Accepted",
-            body=f"The correct code was entered by her '{entered_code}'. Proceeding to next step."
+            body=f"The correct code was entered by her '{entered_code}'. Proceeding to puzzle."
         )
-        return redirect(url_for('gallery'))
+        return redirect(url_for('puzzle'))  # ✅ Redirect to puzzle
     else:
         send_notification_email(
             subject="❌ Mon Amour - Login - Incorrect Code Attempted",
@@ -45,12 +45,17 @@ def verify_code():
         )
         return render_template('index.html', error="Incorrect code. Please try again.", wrong_code=True)
 
+@app.route('/puzzle')
+def puzzle():
+    if not session.get('authenticated'):
+        return redirect(url_for('index'))
+    return render_template('puzzle.html')
+
 @app.route('/gallery')
 def gallery():
     if not session.get('authenticated'):
         return redirect(url_for('index'))
-
-    return render_template('gallery.html', error=None)
+    return render_template('gallery.html')
 
 @app.route('/logout')
 def logout():

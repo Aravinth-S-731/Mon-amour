@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Just One Little Puzzle 🧩</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/puzzle.css') }}" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><text y='90' font-size='90'>🧩</text></svg>">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <h1 class="title">Put her together, piece by piece 🤍</h1>
+
+    <div id="puzzle-frame">
+        <div id="puzzle-container">
+        <div id="hint-overlay"></div>
+        </div>
+    </div>
+
+    <button id="hint-btn">💡 Hint</button>
+    <p id="status"></p>
+
+    <!-- Success Popup -->
+    <div id="popup" class="popup hidden">
+        <div class="popup-content">
+        <h2>🎉 You did it!</h2>
+        <p>Just like her — piece by piece, you saw it through. 🤍</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/puzzle.js') }}"></script>
+</body>
+</html>
