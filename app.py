@@ -162,6 +162,11 @@ def name_guess():
 
     return render_template("name_guess.html", error=None)
 
+@app.route('/poem')
+def poem():
+    return render_template('poem.html')
+
+
 @app.route('/logout')
 def logout():
     session.clear()
