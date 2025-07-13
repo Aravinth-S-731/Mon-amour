@@ -295,3 +295,64 @@ body.loaded #preloader {
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(135deg, #da7298, #b46596); /* deeper on hover */
 }
+
+/* Logout / Visit later button */
+.visit-later-btn {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: linear-gradient(135deg, #d8d8d8, #bcbcbc);
+    color: #333;
+    font-family: 'Quicksand', sans-serif;
+    padding: 8px 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.visit-later-btn:hover {
+    background: linear-gradient(135deg, #c1c1c1, #a7a7a7);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+@media (max-width: 600px) {
+    .visit-later-btn {
+        top: 0.5rem;
+        right: 0.5rem;
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+}
+
+
+/* Next page -> Name Guess button */
+.next-step-btn {
+  background-color: #d6c4f0; /* soft lilac */
+  color: #4b3266;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-family: 'Cursive', sans-serif;
+  border-radius: 12px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.next-step-btn:hover {
+  background-color: #bfa3e2;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(120, 90, 150, 0.3);
+}
+
+@media (max-width: 600px) {
+  .next-step-btn {
+    width: 80%;
+    font-size: 0.95rem;
+  }
+}

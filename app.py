@@ -2,9 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import timedelta
 from utils import send_notification_email  # ← Import the email sender function
 from progress_manager import get_progress, set_progress, reset_progress # ← Import the file handling function
+import re
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Replace with a secure key
+JOURNEY_ORDER = ["puzzle", "gallery", "name_guess", "poem", "timeline", "video"]
 
 # ⏳ Set session timeout to 30 minutes
 app.permanent_session_lifetime = timedelta(minutes=60)
@@ -80,6 +82,7 @@ def reset_journey():
         return redirect(url_for("index"))
     reset_progress()
     set_progress("started", True)
+    set_progress("last_page", "puzzle")
     send_notification_email("She reset the journey 🧼", "She chose to start over from the beginning.")
     return redirect(url_for('puzzle'))
 
@@ -97,20 +100,87 @@ def admin(token):
 def puzzle():
     if not session.get('authenticated'):
         return redirect(url_for('index'))
-    set_progress("last_page", "puzzle")
     return render_template('puzzle.html')
+
+@app.route('/puzzle_complete', methods=["POST"])
+def puzzle_complete():
+    if not session.get('authenticated'):
+        return redirect(url_for('index'))
+    set_progress("last_page", "gallery")  # ✅ Only set after real completion
+    send_notification_email("Puzzle Completed 🧩", "She completed the puzzle.")
+    return '', 204  # Return empty response
 
 @app.route('/gallery')
 def gallery():
     if not session.get('authenticated'):
         return redirect(url_for('index'))
+    if not is_page_allowed("gallery"):
+        return redirect(url_for('puzzle'))
     set_progress("last_page", "gallery")
     return render_template('gallery.html')
+
+@app.route('/go_to_name_guess', methods=["POST"])
+def go_to_name_guess():
+    if not session.get('authenticated'):
+        return redirect(url_for('index'))
+    if not is_page_allowed("name_guess"):
+        return redirect(url_for('gallery'))
+    set_progress("last_page", "name_guess")
+    return redirect(url_for('name_guess'))
+
+@app.route('/name_guess', methods=["GET", "POST"])
+def name_guess():
+    if not session.get("authenticated"):
+        return redirect(url_for("index"))
+
+    if "name_guess_attempts" not in session:
+        session["name_guess_attempts"] = 0
+
+    if request.method == "POST":
+        guessed_name = request.form.get("guessed_name", "").strip().lower()
+        session["name_guess_attempts"] += 1
+
+        nickname_pattern = r"^arvii*$"
+        valid_names = {"aravind", "arvind", "aravinth", "arvinth"}
+
+        if re.match(nickname_pattern, guessed_name) or guessed_name in valid_names:
+            set_progress("last_page", "name_guess")
+            send_notification_email("Name Guess Cracked 💡", f"She guessed your name as '{guessed_name}'")
+            session.pop("name_guess_attempts", None)
+            return redirect(url_for("poem"))
+
+        elif session["name_guess_attempts"] >= 3:
+            send_notification_email("Auto-Skipped After 3 Guesses 🔄", "She tried 3 times. Skipping name guess.")
+            set_progress("last_page", "name_guess")
+            session.pop("name_guess_attempts", None)
+            return redirect(url_for("poem"))
+
+        else:
+            send_notification_email("Wrong Name Guess ❌", f"Attempt {session['name_guess_attempts']}: '{guessed_name}'")
+            error_msg = f"That's not it 😅. Try again! ({session['name_guess_attempts']} / 3)"
+            return render_template("name_guess.html", error=error_msg)
+
+    return render_template("name_guess.html", error=None)
 
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('index'))
+
+def is_page_allowed(current_page):
+    progress = get_progress()
+    last_page = progress.get("last_page", {}).get("value", None)
+    
+    if not last_page:
+        return current_page == "puzzle"  # Only puzzle is allowed at first
+
+    try:
+        last_index = JOURNEY_ORDER.index(last_page)
+        current_index = JOURNEY_ORDER.index(current_page)
+        return current_index <= last_index + 1
+    except ValueError:
+        return False  # Unknown page
+
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0")

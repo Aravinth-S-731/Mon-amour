@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let dragged = null;
     let touchStartIndex = null;
+    let completionNotified = false;
 
     // 🔒 Prevent page scroll/refresh while dragging on mobile
     document.addEventListener("touchmove", function (e) {
@@ -113,9 +114,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function showSuccessPopup() {
+        if (completionNotified) return;
+        completionNotified = true;
+
+        // Notify server only once
+        fetch("/puzzle_complete", { method: "POST" });
+
         const popup = document.createElement("div");
         popup.className = "popup";
-        popup.style.display = "flex"; // ← add this line
+        popup.style.display = "flex";
         popup.innerHTML = `
             <div class="popup-content">
                 <h2>🎉 You did it!</h2>

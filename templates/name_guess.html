@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Guess Me??</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/name_guess.css') }}" />
+</head>
+<body>
+
+    <a href="{{ url_for('logout') }}" class="visit-later-btn">🔒 Visit Later</a>
+
+    <div class="floating-wrapper">
+        <div class="floating-flex">
+            <div class="floating-text">
+                <div class="memory-line left">Maybe I was your classmate... 📘</div>
+                <div class="memory-line right">Maybe we crossed paths in a library... 📚</div>
+                <div class="memory-line left">Or waited beside you while it rained... ☔</div>
+                <div class="memory-line right">We might’ve worked together... or just exchanged a smile 💼</div>
+                <div class="memory-line center">Or maybe... we’ve never met at all... 👀</div>
+                <p class="emphasis">And yet... something feels familiar, doesn’t it?</p>
+            </div>
+
+            <div class="form-card">
+                <h2>So... who do you *think* I am? 💭</h2>
+                <form action="{{ url_for('name_guess') }}" method="POST">
+                    <input type="text" name="guessed_name" placeholder="Type the name that's in your heart..." required />
+                    <button type="submit">Reveal the mystery 💌</button>
+                    {% if error %}
+                    <p class="error">{{ error }}</p>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener("load", () => {
+            document.body.style.visibility = "visible";
+            document.body.style.opacity = "1";
+        });
+    </script>
+
+</body>
+</html>

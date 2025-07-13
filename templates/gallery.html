@@ -12,6 +12,10 @@
 </head>
 <body>
 
+    <a href="{{ url_for('logout') }}" class="visit-later-btn" title="Visit Later">
+        🔒 Visit Later
+    </a>
+
     <div id="preloader">
         <p>Loading something special for you... ❤️</p>
     </div>
@@ -152,6 +156,11 @@
         </div>
         <!-- Add more cards as needed -->
     </main>
+
+    <form action="{{ url_for('go_to_name_guess') }}" method="post" style="text-align: center; margin-top: 3rem;">
+        <button type="submit" class="next-step-btn">Another Game? 🎮</button>
+    </form>
+
 
     <script src="{{ url_for('static', filename='js/gallery.js') }}"></script>
     <script>
