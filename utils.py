@@ -3,6 +3,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -15,7 +16,10 @@ def send_notification_email(subject, body, to_email=sender_email):
     msg["To"] = to_email
     msg["Subject"] = subject
 
-    msg.attach(MIMEText(body, "plain"))
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    full_body = f"{body}\n\nTimestamp: {timestamp}"
+    msg.attach(MIMEText(full_body, "plain"))
 
     try:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:

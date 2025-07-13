@@ -1,0 +1,3 @@
+# Ignore user progress tracking file
+user_progress.json
+.env

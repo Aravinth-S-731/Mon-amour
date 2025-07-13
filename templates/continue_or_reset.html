@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Continue or Reset</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/continue_or_reset.css') }}">
+</head>
+<body>
+    <div class="intro-container">
+        <h2>You're already here ✨</h2>
+        <p>Would you like to continue where you left off or start again?</p>
+        <a href="{{ url_for('continue_journey') }}"><button>Continue</button></a>
+        <a href="{{ url_for('reset_journey') }}"><button>Start Over</button></a>
+    </div>
+</body>
+</html>

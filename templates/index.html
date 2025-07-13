@@ -15,7 +15,9 @@
                 <p>
                     Just a small note before we begin...<br><br>
                     This is not intended in any bad way — no pressure, no expectations.<br><br>
-                    Take your time. And only continue if you're in the mood.
+                    Take your time. And only continue if you're in the mood. 
+                    <br><br>
+                    No sharing with anyone else (Until you finish).
                 </p>
                 <button id="start-btn">Start</button>
             </div>
@@ -27,10 +29,12 @@
             <p>Only you hold the key 🗝️,<br>Please enter the code</p>
             <!-- 🧠 Subtle clue -->
             <p style="font-size: 0.9rem; margin-bottom: 1rem;">
-                <em>A piece of ur name 🍰,<br>
-                The Day you were Born 📅,<br>
-                and the first letter of you star sign ✨<br><br>
-                Rajesh + 01/02/2001 + Libra = Raje01L</em>
+                <em>
+                    Even a gold medalist in college needs something to work, here is a hint:<br><br>
+                    A piece of ur name 🍰,<br>
+                    Numbers invlolving your the Day you Born 📅,<br>
+                    and a part of your star sign ✨<br><br>
+                </em>
             </p>
             <form method="POST" action="{{ url_for('verify_code') }}">
                 <input type="text" id="code-input" name="code" placeholder="Enter code here" class="popup-input" required>
