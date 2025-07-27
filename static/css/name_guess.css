@@ -44,6 +44,7 @@ body::before {
 .floating-flex {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   justify-content: center;
   align-items: stretch;  /* ← Ensures same height */
   gap: 2rem;
@@ -222,7 +223,7 @@ button:hover {
 
   .form-card {
     padding: 1rem;
-    height: 200px;
+    height: 300px;
   }
 
   .form-card h2 {
@@ -279,5 +280,122 @@ button:hover {
   .form-card {
     position: relative;
     z-index: 1;
+    flex: 1 1 100%;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1.5rem;
   }
+}
+
+@media (max-width: 768px) {
+  .floating-flex {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .floating-text,
+  .form-card {
+    flex: 1 1 45%;
+    max-width: 440px;
+  }
+}
+
+.letter-inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    overflow-x: hidden;       /* ✅ Remove scroll */
+    max-width: 100%; 
+    padding: 0 5px;
+}
+
+.letter-inputs input {
+    width: 22px;
+    height: 28px;
+    font-size: 1.3rem;
+    text-align: center;
+    border: 2px solid #d2b3f0;
+    border-radius: 6px;
+    background-color: #fdf7ff;
+    color: #4a2b6d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+.letter-inputs input:focus {
+    border-color: #c191e7;
+    outline: none;
+    transform: scale(1.05);
+}
+
+@media screen and (min-width: 600px) {
+    .letter-inputs input {
+        width: 22px;
+        height: 28px;
+        font-size: 1rem;
+    }
+}
+@media (max-width: 480px) {
+  .letter-inputs input {
+    width: 1.6rem;
+    height: 2.1rem;
+    font-size: 1rem;
+  }
+
+  .otp-input {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1.1rem;
+  }
+
+  .form-card {
+    height: auto;  /* ✅ allow content to grow */
+  }
+
+  .floating-text {
+    height: auto;
+  }
+}
+
+/* 🔡 OTP-style name input */
+.otp-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.otp-container {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.otp-input {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.2rem;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s ease;
+  font-family: 'Quicksand', sans-serif;
+  background: #fff;
+}
+
+.otp-input:focus {
+  border: 2px solid #c27ce2;
+}
+
+/* Autofilled hints (readonly letters) */
+.otp-input[readonly] {
+  background: #f4e6ff;
+  color: #8c54c3;
+  font-weight: bold;
 }

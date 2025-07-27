@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from datetime import timedelta
 from utils import send_notification_email  # ← Import the email sender function
 from progress_manager import get_progress, set_progress, reset_progress # ← Import the file handling function
-import re
+from werkzeug.utils import secure_filename
+import re, os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Replace with a secure key
@@ -10,6 +11,10 @@ JOURNEY_ORDER = ["puzzle", "gallery", "name_guess", "poem", "timeline", "video"]
 
 # ⏳ Set session timeout to 30 minutes
 app.permanent_session_lifetime = timedelta(minutes=60)
+
+UPLOAD_FOLDER = "uploads/selfies"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def index():
@@ -34,6 +39,10 @@ def verify_code():
 
     if entered_code == expected_code:
         progress = get_progress()
+        send_notification_email(
+                "She cracked the code 🗝️",
+                "She entered the correct code and started the journey."
+            )
 
         if progress.get("started"):
             session.permanent = True
@@ -43,10 +52,6 @@ def verify_code():
             set_progress("started", True)
             session.permanent = True
             session["authenticated"] = True
-            send_notification_email(
-                "She cracked the code 🗝️",
-                "She entered the correct code and started the journey."
-            )
             return redirect(url_for('puzzle'))
 
     else:
@@ -136,31 +141,43 @@ def name_guess():
     if "name_guess_attempts" not in session:
         session["name_guess_attempts"] = 0
 
+    attempts = session["name_guess_attempts"]
+    error_msg = None
+
     if request.method == "POST":
-        guessed_name = request.form.get("guessed_name", "").strip().lower()
-        session["name_guess_attempts"] += 1
+        guessed_name = ""
+        attempts += 1
+        session["name_guess_attempts"] = attempts
+
+        # Handling different input forms
+        if attempts == 1:
+            guessed_name = request.form.get("guessed_name", "").strip().lower()
+        else:
+            parts = []
+            for i in range(1, 9):  # Max 8 letters in Aravinth
+                char = request.form.get(f"char{i}", "")
+                parts.append(char.lower())
+            guessed_name = "".join(parts).strip()
 
         nickname_pattern = r"^arvii*$"
         valid_names = {"aravind", "arvind", "aravinth", "arvinth"}
 
         if re.match(nickname_pattern, guessed_name) or guessed_name in valid_names:
-            set_progress("last_page", "name_guess")
             send_notification_email("Name Guess Cracked 💡", f"She guessed your name as '{guessed_name}'")
-            session.pop("name_guess_attempts", None)
-            return redirect(url_for("poem"))
-
-        elif session["name_guess_attempts"] >= 3:
-            send_notification_email("Auto-Skipped After 3 Guesses 🔄", "She tried 3 times. Skipping name guess.")
             set_progress("last_page", "name_guess")
             session.pop("name_guess_attempts", None)
             return redirect(url_for("poem"))
 
+        elif attempts >= 3:
+            send_notification_email("Auto-Skipped After 3 Guesses 🔄", f"She tried 3 times. Skipping name guess.")
+            set_progress("last_page", "name_guess")
+            session.pop("name_guess_attempts", None)
+            return redirect(url_for("poem"))
         else:
-            send_notification_email("Wrong Name Guess ❌", f"Attempt {session['name_guess_attempts']}: '{guessed_name}'")
-            error_msg = f"That's not it 😅. Try again! ({session['name_guess_attempts']} / 3)"
-            return render_template("name_guess.html", error=error_msg)
+            send_notification_email("Wrong Name Guess ❌", f"Attempt {attempts}: '{guessed_name}'")
+            error_msg = f"That's not it 😅. Try again! ({attempts} / 3)"
 
-    return render_template("name_guess.html", error=None)
+    return render_template("name_guess.html", error=error_msg)
 
 @app.route('/poem')
 def poem():
