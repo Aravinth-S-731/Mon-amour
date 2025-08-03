@@ -19,6 +19,7 @@
                 <div class="memory-line right">We might’ve worked together... or just exchanged a smile 💼</div>
                 <div class="memory-line center">Or maybe... we’ve never met at all... 👀</div>
                 <p class="emphasis">And yet... something feels familiar, doesn’t it?</p>
+                <p class="memory-line right">See right 😊 ➯</p>
             </div>
 
             <!-- Right Side Form -->
@@ -45,7 +46,7 @@
                         <div class="letter-inputs">
                             {% set name = "ARAVINTH" %}
                             {% for i in range(1, name|length + 1) %}
-                                {% if i in [1, 3, 6] %}
+                                {% if i in [1, 8] %}
                                     <input type="text" maxlength="1" name="char{{ i }}" value="{{ name[i-1] }}" readonly />
                                 {% else %}
                                     <input type="text" maxlength="1" name="char{{ i }}" required />

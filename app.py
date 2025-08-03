@@ -169,18 +169,33 @@ def name_guess():
             return redirect(url_for("poem"))
 
         elif attempts >= 3:
-            send_notification_email("Auto-Skipped After 3 Guesses 🔄", f"She tried 3 times. Skipping name guess.")
+            send_notification_email("Auto-Skipped After 3 Guesses 🔄", f"She tried 3 times. Skipping name guess. \n Attempt {attempts}: '{guessed_name}'")
             set_progress("last_page", "name_guess")
             session.pop("name_guess_attempts", None)
-            return redirect(url_for("poem"))
+            return redirect(url_for("go_to_poem"))
         else:
             send_notification_email("Wrong Name Guess ❌", f"Attempt {attempts}: '{guessed_name}'")
             error_msg = f"That's not it 😅. Try again! ({attempts} / 3)"
 
     return render_template("name_guess.html", error=error_msg)
 
+@app.route('/go_to_poem', methods=["POST"])
+def go_to_poem():
+    if not session.get('authenticated'):
+        return redirect(url_for('index'))
+    if not is_page_allowed("poem"):
+        return redirect(url_for('name_guess'))
+    set_progress("last_page", "poem")
+    send_notification_email("Redirect to Poem 📜")
+    return redirect(url_for('poem'))
+
 @app.route('/poem')
 def poem():
+    if not session.get('authenticated'):
+        return redirect(url_for('index'))
+    if not is_page_allowed("poem"):
+        return redirect(url_for('name_guess'))
+    set_progress("last_page", "poem")
     return render_template('poem.html')
 
 

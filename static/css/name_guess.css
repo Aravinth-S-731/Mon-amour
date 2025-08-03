@@ -280,9 +280,6 @@ button:hover {
   .form-card {
     position: relative;
     z-index: 1;
-    flex: 1 1 100%;
-    max-width: 100%;
-    width: 100%;
     box-sizing: border-box;
     padding: 1.5rem;
   }
@@ -296,7 +293,7 @@ button:hover {
 
   .floating-text,
   .form-card {
-    flex: 1 1 45%;
+    flex: 1 1 100%;
     max-width: 440px;
   }
 }
@@ -346,12 +343,6 @@ button:hover {
     font-size: 1rem;
   }
 
-  .otp-input {
-    width: 2.2rem;
-    height: 2.2rem;
-    font-size: 1.1rem;
-  }
-
   .form-card {
     height: auto;  /* ✅ allow content to grow */
   }
@@ -361,41 +352,23 @@ button:hover {
   }
 }
 
-/* 🔡 OTP-style name input */
-.otp-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
+/* For Chrome, Edge, Safari */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 10px;
 }
 
-.otp-container {
-  display: flex;
-  justify-content: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
+::-webkit-scrollbar-track {
+    background: #fceef1; /* light pink */
+    border-radius: 10px;
 }
 
-.otp-input {
-  width: 2.5rem;
-  height: 2.5rem;
-  font-size: 1.2rem;
-  text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
-  transition: border 0.2s ease;
-  font-family: 'Quicksand', sans-serif;
-  background: #fff;
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #e89ab2, #c67fa3); /* soft pink to purple */
+    border-radius: 10px;
+    border: 2px solid #fceef1;
 }
 
-.otp-input:focus {
-  border: 2px solid #c27ce2;
-}
-
-/* Autofilled hints (readonly letters) */
-.otp-input[readonly] {
-  background: #f4e6ff;
-  color: #8c54c3;
-  font-weight: bold;
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #da7298, #b46596); /* deeper on hover */
 }
