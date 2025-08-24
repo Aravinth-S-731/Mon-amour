@@ -51,20 +51,23 @@
             நீ கடந்த பாதையில்! 👣</p>
             </div>
     </div>
+    <form action="{{ url_for('go_to_video') }}" method="post" style="text-align: center; margin-top: 3rem;">
+        <button type="submit" class="next-step-btn">Last One 🔚</button>
+    </form>
 
     <script>
-        const audio = document.querySelector('audio');
-        const toggle = document.getElementById('audioToggle');
+       const audio = document.querySelector('audio');
+       const toggle = document.getElementById('audioToggle');
 
-        toggle.addEventListener('click', () => {
-        if (audio.paused) {
-            audio.play();
-            toggle.textContent = '🔈';
-        } else {
-            audio.pause();
-            toggle.textContent = '🔇';
-        }
-        });
+       toggle.addEventListener('click', () => {
+       if (audio.paused) {
+           audio.play();
+           toggle.textContent = '🔈';
+       } else {
+           audio.pause();
+           toggle.textContent = '🔇';
+       }
+       });
     </script>
 
 

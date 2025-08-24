@@ -172,7 +172,7 @@ def name_guess():
             send_notification_email("Auto-Skipped After 3 Guesses 🔄", f"She tried 3 times. Skipping name guess. \n Attempt {attempts}: '{guessed_name}'")
             set_progress("last_page", "name_guess")
             session.pop("name_guess_attempts", None)
-            return redirect(url_for("go_to_poem"))
+            return redirect(url_for("poem"))
         else:
             send_notification_email("Wrong Name Guess ❌", f"Attempt {attempts}: '{guessed_name}'")
             error_msg = f"That's not it 😅. Try again! ({attempts} / 3)"
@@ -186,7 +186,6 @@ def go_to_poem():
     if not is_page_allowed("poem"):
         return redirect(url_for('name_guess'))
     set_progress("last_page", "poem")
-    send_notification_email("Redirect to Poem 📜")
     return redirect(url_for('poem'))
 
 @app.route('/poem')
@@ -195,9 +194,27 @@ def poem():
         return redirect(url_for('index'))
     if not is_page_allowed("poem"):
         return redirect(url_for('name_guess'))
-    set_progress("last_page", "poem")
+    set_progress("last_page", "video")
     return render_template('poem.html')
 
+@app.route('/go_to_video', methods=["POST"])
+def go_to_video():
+    if not session.get('authenticated'):
+        return redirect(url_for('index'))
+    if not is_page_allowed("video"):
+        return redirect(url_for('poem'))
+    set_progress("last_page", "video")
+    send_notification_email("Redirect to Video 🎬","")
+    return redirect(url_for('video'))
+
+@app.route('/video', methods=["GET", "POST"])
+def video():
+    if not session.get('authenticated'):
+        return redirect(url_for('index'))
+    if not is_page_allowed("video"):
+        return redirect(url_for('poem'))
+    set_progress("last_page", "video")
+    return render_template('video.html')
 
 @app.route('/logout')
 def logout():

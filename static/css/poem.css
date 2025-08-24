@@ -158,6 +158,23 @@ body {
   } 
 }
 
+/* Next page -> Name Guess button */
+.next-step-btn {
+  background-color: #d6c4f0; /* soft lilac */
+  color: #4b3266;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-family: 'Cursive', sans-serif;
+  border-radius: 12px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+  top: -60px;
+  margin-bottom: 50px;
+}
 
 
 

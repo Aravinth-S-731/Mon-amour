@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Lily+Script+One&family=Quicksand:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;  
+    font-family: 'Quicksand', sans-serif;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    overflow: hidden;
+}
+
+/* 🔒 Visit Later button */
+.visit-later-btn {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    z-index: 1100;
+    backdrop-filter: blur(6px);
+    transition: 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.visit-later-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* 🎥 Fullscreen video container */
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* 📱 Force landscape on mobile */
+@media screen and (orientation: portrait) {
+    .video-container {
+        display: none;
+    }
+
+    body::before {
+        content: "📱 Please rotate your device ↔️\A\A Use High quality setting ⚙️\A\A Stream in WiFi for better Experience. 🛜";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 1.2rem;
+        font-family: 'Quicksand', sans-serif;
+        text-align: center;
+        z-index: 1000;
+        white-space: pre-line; /* ✅ Enables \A line breaks */
+    }
+}

@@ -16,6 +16,13 @@
         🔒 Visit Later
     </a>
 
+    <button id="audioToggle">🔈</button>
+
+    <audio autoplay loop>
+        <source src="{{ url_for('static', filename='audio/Happy-Birthday.mp3') }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <div id="preloader">
         <p>Loading something special for you... ❤️</p>
     </div>
@@ -166,6 +173,20 @@
     <script>
         window.addEventListener('load', function () {
             document.body.classList.add('loaded');
+        });
+
+        // For songs playing/pausing
+        const audio = document.querySelector('audio');
+        const toggle = document.getElementById('audioToggle');
+
+        toggle.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            toggle.textContent = '🔈';
+        } else {
+            audio.pause();
+            toggle.textContent = '🔇';
+        }
         });
     </script>
 

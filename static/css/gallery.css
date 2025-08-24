@@ -13,7 +13,6 @@ body {
     align-items: center;
     position: relative;
     overflow-x: hidden;
-    cursor: url('../images/heart.png'), auto;
 
     /* To hide until resource loads */
     visibility: hidden;
@@ -354,5 +353,29 @@ body.loaded #preloader {
   .next-step-btn {
     width: 80%;
     font-size: 0.95rem;
+  }
+}
+
+#audioToggle {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: rgba(65, 65, 65, 0.333);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 999;
+  animation: pulseGlow 2s infinite;
+}
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.25);
   }
 }
