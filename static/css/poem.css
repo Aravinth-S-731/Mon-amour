@@ -72,7 +72,7 @@ body {
   text-align: center;
   color: #2b2b2b;
   margin: 1rem 1rem 1rem 0;
-  animation: fadeIn 1s ease-out;
+  animation: fadeIn 2s ease-out;
 }
 
 @keyframes fadeIn {
@@ -101,6 +101,19 @@ body {
   text-align: left;
   background: transparent;
 }
+
+/* Each stanza fades in one after another */
+.poem-content p {
+  opacity: 0;
+  animation: fadeIn 2s ease-out forwards;
+}
+
+.poem-content p:nth-of-type(1) { animation-delay: 0s; }
+.poem-content p:nth-of-type(2) { animation-delay: 1s; }
+.poem-content p:nth-of-type(3) { animation-delay: 2s; }
+.poem-content p:nth-of-type(4) { animation-delay: 3s; }
+.poem-content p:nth-of-type(5) { animation-delay: 4s; }
+.poem-content p:nth-of-type(6) { animation-delay: 5s; }
 
 @media (max-width: 600px) {
   .poem-title {
@@ -160,20 +173,19 @@ body {
 
 /* Next page -> Name Guess button */
 .next-step-btn {
-  background-color: #d6c4f0; /* soft lilac */
-  color: #4b3266;
+  background-color: rgba(255, 255, 255, 0.3); /* soft lilac */
+  color: rgba(0, 0, 0, 0.77);
   border: none;
   padding: 12px 24px;
   font-size: 1rem;
   font-family: 'Cursive', sans-serif;
   border-radius: 12px;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.7);
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
   z-index: 1;
   top: -60px;
-  margin-bottom: 50px;
 }
 
 
