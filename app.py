@@ -6,7 +6,8 @@ from werkzeug.utils import secure_filename
 import re, os
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # Replace with a secure key
+# app.secret_key = 'your_secret_key_here'  # Replace with a secure key
+app.secret_key = os.getenv("SECRET_KEY", "dev-secret-please-change")
 JOURNEY_ORDER = ["puzzle", "gallery", "name_guess", "poem", "timeline", "video"]
 
 # ⏳ Set session timeout to 30 minutes
