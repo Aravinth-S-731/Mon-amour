@@ -8,7 +8,7 @@ So today's a special day for you.
 
 But before we begin, I need you to be fully here.
 
-This journey will take around 15–25 minutes.
+This journey will take around 15 minutes.
 Can you stay with me for a while?
 
 If yes... let’s begin.`;
@@ -19,7 +19,7 @@ function typeWriter() {
   if (i < text.length) {
     typewriterElement.textContent += text.charAt(i);
     i++;
-    setTimeout(typeWriter, 1);
+    setTimeout(typeWriter, 60);
   } else {
     continueBtn.classList.remove('hidden');
   }
