@@ -217,6 +217,10 @@ def video():
     set_progress("last_page", "video")
     return render_template('video.html')
 
+@app.route('/video-private', methods=["GET", "POST"])
+def video_private():
+    return render_template('video_private.html')
+
 @app.route('/logout')
 def logout():
     session.clear()
