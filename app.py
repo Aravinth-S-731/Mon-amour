@@ -217,9 +217,11 @@ def video():
     set_progress("last_page", "video")
     return render_template('video.html')
 
-@app.route('/video-private', methods=["GET", "POST"])
-def video_private():
-    return render_template('video_private.html')
+@app.route('/video/<token>', methods=["GET", "POST"])
+def video_private(token):
+    if token == "262921":
+        return render_template('video_private.html')
+    return "Unauthorized - Private Page", 403
 
 @app.route('/logout')
 def logout():
